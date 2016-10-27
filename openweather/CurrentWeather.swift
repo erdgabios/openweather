@@ -47,11 +47,20 @@ class CurrentWeather {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+    func downloadWeatherDetails(completed: @escaping DownloadComplete) {
+      
+        let currentWeatherURL = URL(string: STATIC_URL)!
+        Alamofire.request(currentWeatherURL).responseJSON { response in
+            
+            let result = response.result
+            print(response)
+        
+        }
+        completed()
+    }
 }
+    
+    
+    
+    
+
