@@ -11,6 +11,12 @@ import UIKit
 
 class WeatherVC: UIViewController {
     
+    
+    @IBOutlet weak var cityNameLbl: UILabel!
+    
+    
+    
+    
     let date = NSDate(timeIntervalSince1970: 1477579920)
     
     var currentWeather = CurrentWeather()
@@ -29,6 +35,12 @@ class WeatherVC: UIViewController {
         currentWeather.downloadWeatherDetails() {
             
         }
+        
+        print("The name of the city: \(currentWeather._cityName)")
+        
+        cityNameLbl.text = currentWeather._cityName
+        
+        
         
         
     }
