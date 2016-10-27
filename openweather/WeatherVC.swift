@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  WeatherVC.swift
 //  openweather
 //
 //  Created by G on 27/10/2016.
@@ -8,18 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+class WeatherVC: UIViewController {
+    
+    let date = NSDate(timeIntervalSince1970: 1477579920)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        print(CONCAT_URL)
+        print(URL)
+    
+        //let date = NSDate(timeIntervalSince1970: 1477579920)
+        print("Az ido: \(date)")
+        
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+ 
 
 }
 

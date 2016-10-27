@@ -7,3 +7,26 @@
 //
 
 import Foundation
+
+
+let BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q="
+
+let CITY_NAME = "Kosice"
+
+let TAIL_URL = "&appid=a59ceb219a3a03f8bc25ede69cfaf865"
+
+let URL = "http://api.openweathermap.org/data/2.5/weather?q=Kosice&appid=a59ceb219a3a03f8bc25ede69cfaf865"
+
+let CONCAT_URL = "\(BASE_URL)\(CITY_NAME)\(TAIL_URL)"
+
+
+
+
+
+
+
+
+
+
+
+
