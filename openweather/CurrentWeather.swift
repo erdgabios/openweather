@@ -20,6 +20,11 @@ class CurrentWeather {
     var _icon: String!
     var _humidity: Double!
     var _pressure: Double!
+    var _windSpeed: Double!
+    var _windDeg: Double!
+    var _countryCode: String!
+    var _sunrise: String!
+    var _sunset: String!
     
     
     var cityName: String {
@@ -77,6 +82,45 @@ class CurrentWeather {
         }
         return _pressure
     }
+    
+    var winSpeed: Double {
+        if _windSpeed == nil {
+            _windSpeed = 1000.0
+        }
+        return _windSpeed
+    }
+    
+    var windDeg: Double {
+        if _windDeg == nil {
+            _windDeg = 1000.0
+        }
+        return _windDeg
+    }
+    
+    var countryCode: String {
+        if _countryCode == nil {
+            _countryCode = ""
+        }
+        return _countryCode
+    }
+    
+    var sunrise: String {
+        if _sunrise == nil {
+            _sunrise = ""
+        }
+        return _sunrise
+    }
+    
+    var sunset: String {
+        if _sunset == nil {
+            _sunset = ""
+        }
+        return _sunset
+    }
+    
+    
+    
+    
     
     
     
@@ -148,6 +192,70 @@ class CurrentWeather {
                     }
                 }
                 
+                if let wind = dict["wind"] as? Dictionary<String, AnyObject> {
+                    
+                    if let speed = wind["speed"] as? Double {
+                        
+                        self._windSpeed = speed
+                        
+                        print("WIND SPEED: \(self._windSpeed)")
+                    }
+                    
+                    if let deg = wind["deg"] as? Double {
+                        
+                        self._windDeg = deg
+                        
+                        print("WIND DEG: \(self._windDeg)")
+                    }
+                }
+                
+                if let sys = dict["sys"] as? Dictionary<String, AnyObject> {
+                    
+                    if let country = sys["country"] as? String {
+                        
+                        self._countryCode = country
+                        
+                        print("COUNTRY: \(self._countryCode)")
+                    }
+                    
+                    if let sunrise = sys["sunrise"] as? Double {
+                        
+                        let sunrise = NSDate(timeIntervalSince1970: sunrise)
+                        
+                        let dateFormatter = DateFormatter()
+                        
+                        let myLocale = Locale(identifier: "en_GB")
+                        
+                        
+                        dateFormatter.locale = myLocale
+                        dateFormatter.dateStyle = .none
+                        dateFormatter.timeStyle = .short
+                        let sunriseTime = dateFormatter.string(from: sunrise as Date)
+                        self._sunrise = sunriseTime
+                        
+                        print("SUNRISE TIME: \(self._sunrise)")
+                    }
+                    
+                    if let sunset = sys["sunset"] as? Double {
+                        
+                        let sunset = NSDate(timeIntervalSince1970: sunset)
+                        
+                        let dateFormatter = DateFormatter()
+                        
+                        let myLocale = Locale(identifier: "en_GB")
+                        
+                        
+                        dateFormatter.locale = myLocale
+                        dateFormatter.dateStyle = .none
+                        dateFormatter.timeStyle = .short
+                        let sunsetTime = dateFormatter.string(from: sunset as Date)
+                        self._sunset = sunsetTime
+                        
+                        print("SUNSET TIME: \(self._sunset)")
+                    }
+                }
+                
+                
                 if let dt = dict["dt"] as? Double {
                     
                     
@@ -165,8 +273,10 @@ class CurrentWeather {
                     dateFormatter.dateStyle = .long
                     dateFormatter.timeStyle = .none
                     let currentDate = dateFormatter.string(from: date as Date)
+                    self._date = currentDate
                     
-                    print(currentDate)
+                    print("CURRENT DATE: \(self._date)")
+                    
                 }
             }
         
@@ -175,7 +285,3 @@ class CurrentWeather {
     }
 }
     
-    
-    
-    
-
