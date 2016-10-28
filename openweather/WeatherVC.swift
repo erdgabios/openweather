@@ -16,7 +16,6 @@ class WeatherVC: UIViewController {
     var currentWeather = CurrentWeather()
     
     
-    
     @IBOutlet weak var cityCountryCodeLbl: UILabel!
     @IBOutlet weak var weatherTime: UILabel!
     @IBOutlet weak var weatherTypeImage: UIImageView!
@@ -26,13 +25,9 @@ class WeatherVC: UIViewController {
     @IBOutlet weak var rainLbl: UILabel!
     @IBOutlet weak var humidityLbl: UILabel!
     @IBOutlet weak var pressureLbl: UILabel!
-    
     @IBOutlet weak var windspLbl: UILabel!
-    
     @IBOutlet weak var winddegLbl: UILabel!
-    
     @IBOutlet weak var sunriseLbl: UILabel!
-
     @IBOutlet weak var sunsetLbl: UILabel!
     
     
@@ -47,8 +42,6 @@ class WeatherVC: UIViewController {
             
             self.updateUI()
             
-            
-            
         }
     }
     
@@ -59,7 +52,7 @@ class WeatherVC: UIViewController {
         weatherTypeImage.image = UIImage(named: currentWeather.weatherType)
         currentTemp.text = "\(currentWeather.currentTemp) °C"
         detailedWeatherTypeLbl.text = currentWeather.detailedWeatherType
-        cloudsLbl.text = "Clouds:\(currentWeather.cloudsPercent) %"
+        cloudsLbl.text = "Clouds: \(currentWeather.cloudsPercent) %"
         rainLbl.text = "Rain: \(currentWeather.rain) mm"
         humidityLbl.text = "Humidity: \(currentWeather.humidity) %"
         pressureLbl.text = "Pressure: \(currentWeather.pressure) hpa"
@@ -67,10 +60,6 @@ class WeatherVC: UIViewController {
         winddegLbl.text = "Wind deg: \(currentWeather.windDeg) °"
         sunriseLbl.text = "Sunrise: \(currentWeather.sunrise)"
         sunsetLbl.text = "Sunset: \(currentWeather.sunset)"
-        
-        
-        
-        
     }
     
     
