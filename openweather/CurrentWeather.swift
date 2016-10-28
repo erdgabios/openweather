@@ -25,6 +25,7 @@ class CurrentWeather {
     var _countryCode: String!
     var _sunrise: String!
     var _sunset: String!
+    var _cloudsPercent: Int!
     
     
     var cityName: String {
@@ -117,6 +118,14 @@ class CurrentWeather {
         }
         return _sunset
     }
+    
+    var cloudsPercent: Int {
+        if _cloudsPercent == nil {
+            _cloudsPercent = -300
+        }
+        return _cloudsPercent
+    }
+    
     
     
     
@@ -252,6 +261,16 @@ class CurrentWeather {
                         self._sunset = sunsetTime
                         
                         print("SUNSET TIME: \(self._sunset)")
+                    }
+                }
+                
+                if let clouds = dict["clouds"] as? Dictionary<String, AnyObject> {
+                    
+                    if let all = clouds["all"] as? Int {
+                        
+                        self._cloudsPercent = all
+                        
+                        print("CLOUDS PERCENT: \(self._cloudsPercent)")
                     }
                 }
                 
