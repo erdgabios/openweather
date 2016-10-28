@@ -18,14 +18,15 @@ class CurrentWeather {
     var _currentTemp: Int!
     var _detailedWeatherType: String!
     var _icon: String!
-    var _humidity: Double!
-    var _pressure: Double!
-    var _windSpeed: Double!
-    var _windDeg: Double!
+    var _humidity: Int!
+    var _pressure: Int!
+    var _windSpeed: Int!
+    var _windDeg: Int!
     var _countryCode: String!
     var _sunrise: String!
     var _sunset: String!
     var _cloudsPercent: Int!
+    var _rain: Int!
     
     
     var cityName: String {
@@ -70,30 +71,30 @@ class CurrentWeather {
         return _icon
     }
     
-    var humidity: Double {
+    var humidity: Int {
         if _humidity == nil {
-            _humidity = -3000.00
+            _humidity = -3000
         }
         return _humidity
     }
     
-    var pressure: Double {
+    var pressure: Int {
         if _pressure == nil {
-            _pressure = -3000.00
+            _pressure = -3000
         }
         return _pressure
     }
     
-    var winSpeed: Double {
+    var winSpeed: Int {
         if _windSpeed == nil {
-            _windSpeed = 1000.0
+            _windSpeed = 1000
         }
         return _windSpeed
     }
     
-    var windDeg: Double {
+    var windDeg: Int {
         if _windDeg == nil {
-            _windDeg = 1000.0
+            _windDeg = 1000
         }
         return _windDeg
     }
@@ -126,12 +127,13 @@ class CurrentWeather {
         return _cloudsPercent
     }
     
-    
-    
-    
-    
-    
-    
+    var rain: Int {
+        if _rain == nil {
+            _rain = 0
+        }
+        return _rain
+    }
+
     
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
       
@@ -145,8 +147,17 @@ class CurrentWeather {
                 if let name = dict["name"] as? String {
                     
                     self._cityName = name
-                    
+
                     print("CITY NAME: \(self.cityName)")
+                }
+                
+                if let rain = dict["rain"] as? Dictionary<String, AnyObject> {
+                    
+                    if let rain3h = rain["3h"] as? Double {
+                        self._rain = Int(rain3h)
+                        
+                        print("RAIN: \(self._rain)")
+                    }
                 }
                 
                 if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
@@ -188,14 +199,14 @@ class CurrentWeather {
                     
                     if let pressure = main["pressure"] as? Double {
                         
-                        self._pressure = pressure
+                        self._pressure = Int(pressure)
                         
                         print("PRESSURE: \(self._pressure)")
                     }
                     
                     if let humidity = main["humidity"] as? Double {
                         
-                        self._humidity = humidity
+                        self._humidity = Int(humidity)
                         
                         print("HUMIDITY: \(self._humidity)")
                     }
@@ -205,14 +216,14 @@ class CurrentWeather {
                     
                     if let speed = wind["speed"] as? Double {
                         
-                        self._windSpeed = speed
+                        self._windSpeed = Int(speed)
                         
                         print("WIND SPEED: \(self._windSpeed)")
                     }
                     
                     if let deg = wind["deg"] as? Double {
                         
-                        self._windDeg = deg
+                        self._windDeg = Int(deg)
                         
                         print("WIND DEG: \(self._windDeg)")
                     }
@@ -290,7 +301,7 @@ class CurrentWeather {
 
                     dateFormatter.locale = myLocale
                     dateFormatter.dateStyle = .long
-                    dateFormatter.timeStyle = .none
+                    dateFormatter.timeStyle = .short
                     let currentDate = dateFormatter.string(from: date as Date)
                     self._date = currentDate
                     
@@ -298,9 +309,9 @@ class CurrentWeather {
                     
                 }
             }
-        
+            completed()
         }
-        completed()
+       // completed()
     }
+
 }
-    
