@@ -18,6 +18,8 @@ class CurrentWeather {
     var _currentTemp: Int!
     var _detailedWeatherType: String!
     var _icon: String!
+    var _humidity: Double!
+    var _pressure: Double!
     
     
     var cityName: String {
@@ -61,6 +63,21 @@ class CurrentWeather {
         }
         return _icon
     }
+    
+    var humidity: Double {
+        if _humidity == nil {
+            _humidity = -3000.00
+        }
+        return _humidity
+    }
+    
+    var pressure: Double {
+        if _pressure == nil {
+            _pressure = -3000.00
+        }
+        return _pressure
+    }
+    
     
     
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
@@ -114,6 +131,20 @@ class CurrentWeather {
                         print(temp)
                         print("CURRENTTEMP: \(self._currentTemp)")
                         
+                    }
+                    
+                    if let pressure = main["pressure"] as? Double {
+                        
+                        self._pressure = pressure
+                        
+                        print("PRESSURE: \(self._pressure)")
+                    }
+                    
+                    if let humidity = main["humidity"] as? Double {
+                        
+                        self._humidity = humidity
+                        
+                        print("HUMIDITY: \(self._humidity)")
                     }
                 }
                 
